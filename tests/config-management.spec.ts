@@ -1,10 +1,7 @@
-import {
-	_mergeOverlappingShifts,
-	_isUnavailablePeriodValid,
-	isConfigurationValid,
-} from "../src/config-management"
+
 import { TimeSlotsFinderError } from "../src/errors"
 import { Shift } from "../src"
+import {_isUnavailablePeriodValid, _mergeOverlappingShifts, isConfigurationValid} from "../lib/time-slots-dayjs";
 
 describe("#_mergeOverlappingShifts", () => {
 	it("should handle too small arrays properly", () => {
