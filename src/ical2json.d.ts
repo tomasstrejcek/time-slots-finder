@@ -4,5 +4,6 @@ declare module "ical2json" {
     }
 
     declare function convert(iCalData: string): JSONCal
+
     declare function revert(jsonCal: JSONCal): string
 }
