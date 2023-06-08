@@ -15,6 +15,16 @@ const baseConfig = {
 	timeZone: "Europe/Paris",
 }
 
+const encompassing1 = {
+	startAt: DateTime.fromISO('2022-04-10T05:00:00', { zone: 'Europe/Paris' }).toObject() as { year: number, month: number, day: number },
+	endAt: DateTime.fromISO('2022-04-10T06:00:00', { zone: 'Europe/Paris' }).toObject() as { year: number, month: number, day: number }
+}
+
+const encompassing2 = {
+	startAt: DateTime.fromISO('2022-04-10T00:00:00', { zone: 'Europe/Paris' }).toObject() as { year: number, month: number, day: number },
+	endAt: DateTime.fromISO('2022-04-10T10:00:00', { zone: 'Europe/Paris' }).toObject() as { year: number, month: number, day: number }
+}
+
 describe("Time Slot Finder", () => {
 	beforeEach(() => MockDate.reset())
 	afterAll(() => MockDate.reset())
@@ -79,6 +89,7 @@ describe("Time Slot Finder", () => {
 						]
 					}
 				],
+				unavailablePeriods: [encompassing2],
 				slotStartMinuteStep: 15
 			},
 			from: DateTime.fromISO("2022-04-10T00:00:00.000+02:00"),

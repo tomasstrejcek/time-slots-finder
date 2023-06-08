@@ -1,3 +1,5 @@
+import {DateTime} from "luxon";
+
 process.env.TZ = 'UTC'
 import { getAvailableTimeSlotsInCalendar } from "../src/time-slots-dayjs"
 import MockDate from "mockdate"
@@ -12,6 +14,16 @@ const baseConfig = {
 		shifts: [{ startTime: "10:00", endTime: "20:00" }]
 	}],
 	timeZone: "Europe/Paris",
+}
+
+const encompassing1 = {
+	startAt: DateTime.fromISO('2022-04-10T04:00:00', { zone: 'Europe/Paris' }).toObject() as { year: number, month: number, day: number },
+	endAt: DateTime.fromISO('2022-04-10T14:00:00', { zone: 'Europe/Paris' }).toObject() as { year: number, month: number, day: number }
+}
+
+const encompassing2 = {
+	startAt: DateTime.fromISO('2022-04-10T09:14:00', { zone: 'Europe/Paris' }).toObject() as { year: number, month: number, day: number },
+	endAt: DateTime.fromISO('2022-04-10T09:24:00', { zone: 'Europe/Paris' }).toObject() as { year: number, month: number, day: number }
 }
 
 describe("Time Slot Finder", () => {
@@ -78,7 +90,8 @@ describe("Time Slot Finder", () => {
 						]
 					}
 				],
-				slotStartMinuteStep: 15
+				slotStartMinuteStep: 15,
+				unavailablePeriods: [encompassing2],
 			},
 			from: new Date("2022-04-10T00:00:00.000+02:00"),
 			to: new Date("2022-04-11T00:00:00.000+02:00")
@@ -105,7 +118,8 @@ describe("Time Slot Finder", () => {
 							}
 						]
 					}
-				]
+				],
+				unavailablePeriods: [encompassing1],
 			},
 			from: new Date("2022-04-10T00:00:00.000+02:00"),
 			to: new Date("2022-04-11T00:00:00.000+02:00")
